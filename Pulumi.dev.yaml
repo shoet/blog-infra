@@ -1,0 +1,6 @@
+config:
+  aws:region: ap-northeast-1
+  upstash:apiKey:
+    secure: AAABANLlKcexZ3qQLKOIMz4qxbdaGk9m117ldb4x0fVnGS9Xh44r0tuTS059I8oo1b48ywhUYinuYLRlcnM+k+hD30U=
+  upstash:email:
+    secure: AAABACFpmxlS80lNeCwkg7D+DSDlOUrP/xRKqc1ZQ+UIRR8X+lt7iBoKP6XgU10XPZYxjOg=

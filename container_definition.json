@@ -1,0 +1,120 @@
+[
+  {
+    "name": "backend",
+    "image": "{{.AwsAccountId}}.dkr.ecr.{{.Region}}.amazonaws.com/blog-backend:latest",
+    "cpu": 0,
+    "portMappings": [
+      {
+        "name": "backend-3000-tcp",
+        "containerPort": 3000,
+        "hostPort": 3000,
+        "protocol": "tcp",
+        "appProtocol": "http"
+      }
+    ],
+    "essential": true,
+    "secrets": [
+      {
+        "valueFrom": "arn:aws:secretsmanager:{{.Region}}:{{.AwsAccountId}}:secret:{{.SecretsManagerId}}:BLOG_AWS_S3_THUMBNAIL_DIRECTORY::",
+        "name": "BLOG_AWS_S3_THUMBNAIL_DIRECTORY"
+      },
+      {
+        "valueFrom": "arn:aws:secretsmanager:{{.Region}}:{{.AwsAccountId}}:secret:{{.SecretsManagerId}}:BLOG_AWS_S3_CONTENT_IMAGE_DIRECTORY::",
+        "name": "BLOG_AWS_S3_CONTENT_IMAGE_DIRECTORY"
+      },
+      {
+        "valueFrom": "arn:aws:secretsmanager:{{.Region}}:{{.AwsAccountId}}:secret:{{.SecretsManagerId}}:BLOG_AWS_S3_BUCKET::",
+        "name": "BLOG_AWS_S3_BUCKET"
+      },
+      {
+        "valueFrom": "arn:aws:secretsmanager:{{.Region}}:{{.AwsAccountId}}:secret:{{.SecretsManagerId}}:JWT_SECRET::",
+        "name": "JWT_SECRET"
+      },
+      {
+        "valueFrom": "arn:aws:secretsmanager:{{.Region}}:{{.AwsAccountId}}:secret:{{.SecretsManagerId}}:BLOG_DB_HOST::",
+        "name": "BLOG_DB_HOST"
+      },
+      {
+        "valueFrom": "arn:aws:secretsmanager:{{.Region}}:{{.AwsAccountId}}:secret:{{.SecretsManagerId}}:BLOG_DB_PORT::",
+        "name": "BLOG_DB_PORT"
+      },
+      {
+        "valueFrom": "arn:aws:secretsmanager:{{.Region}}:{{.AwsAccountId}}:secret:{{.SecretsManagerId}}:BLOG_DB_NAME::",
+        "name": "BLOG_DB_NAME"
+      },
+      {
+        "valueFrom": "arn:aws:secretsmanager:{{.Region}}:{{.AwsAccountId}}:secret:{{.SecretsManagerId}}:BLOG_DB_USER::",
+        "name": "BLOG_DB_USER"
+      },
+      {
+        "valueFrom": "arn:aws:secretsmanager:{{.Region}}:{{.AwsAccountId}}:secret:{{.SecretsManagerId}}:BLOG_DB_PASS::",
+        "name": "BLOG_DB_PASS"
+      },
+      {
+        "valueFrom": "arn:aws:secretsmanager:{{.Region}}:{{.AwsAccountId}}:secret:{{.SecretsManagerId}}:BLOG_DB_TLS_ENABLED::",
+        "name": "BLOG_DB_TLS_ENABLED"
+      },
+      {
+        "valueFrom": "arn:aws:secretsmanager:{{.Region}}:{{.AwsAccountId}}:secret:{{.SecretsManagerId}}:BLOG_KVS_HOST::",
+        "name": "BLOG_KVS_HOST"
+      },
+      {
+        "valueFrom": "arn:aws:secretsmanager:{{.Region}}:{{.AwsAccountId}}:secret:{{.SecretsManagerId}}:BLOG_KVS_PORT::",
+        "name": "BLOG_KVS_PORT"
+      },
+      {
+        "valueFrom": "arn:aws:secretsmanager:{{.Region}}:{{.AwsAccountId}}:secret:{{.SecretsManagerId}}:BLOG_KVS_USER::",
+        "name": "BLOG_KVS_USER"
+      },
+      {
+        "valueFrom": "arn:aws:secretsmanager:{{.Region}}:{{.AwsAccountId}}:secret:{{.SecretsManagerId}}:BLOG_KVS_PASS::",
+        "name": "BLOG_KVS_PASS"
+      },
+      {
+        "valueFrom": "arn:aws:secretsmanager:{{.Region}}:{{.AwsAccountId}}:secret:{{.SecretsManagerId}}:BLOG_KVS_TLS_ENABLED::",
+        "name": "BLOG_KVS_TLS_ENABLED"
+      },
+      {
+        "valueFrom": "arn:aws:secretsmanager:{{.Region}}:{{.AwsAccountId}}:secret:{{.SecretsManagerId}}:ADMIN_NAME::",
+        "name": "ADMIN_NAME"
+      },
+      {
+        "valueFrom": "arn:aws:secretsmanager:{{.Region}}:{{.AwsAccountId}}:secret:{{.SecretsManagerId}}:ADMIN_EMAIL::",
+        "name": "ADMIN_EMAIL"
+      },
+      {
+        "valueFrom": "arn:aws:secretsmanager:{{.Region}}:{{.AwsAccountId}}:secret:{{.SecretsManagerId}}:ADMIN_PASSWORD::",
+        "name": "ADMIN_PASSWORD"
+      },
+      {
+        "valueFrom": "arn:aws:secretsmanager:{{.Region}}:{{.AwsAccountId}}:secret:{{.SecretsManagerId}}:SITE_DOMAIN::",
+        "name": "SITE_DOMAIN"
+      },
+      {
+        "valueFrom": "arn:aws:secretsmanager:{{.Region}}:{{.AwsAccountId}}:secret:{{.SecretsManagerId}}:CORS_WHITE_LIST::",
+        "name": "CORS_WHITE_LIST"
+      }
+    ],
+    "environment": [
+      {
+        "name": "BLOG_APP_PORT",
+        "value": "3000"
+      },
+      {
+        "name": "BLOG_ENV",
+        "value": "prod"
+      }
+    ],
+    "mountPoints": [],
+    "volumesFrom": [],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-create-group": "true",
+        "awslogs-group": "/ecs/blog-backend",
+        "awslogs-region": "{{.Region}}",
+        "awslogs-stream-prefix": "ecs"
+      }
+    }
+  }
+]
